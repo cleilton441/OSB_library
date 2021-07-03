@@ -1,0 +1,17 @@
+.container{
+    position: relative;
+    background-color:#759ebb;
+    width: 37rem;
+    height: 8rem;
+    left: 43rem;
+    bottom: 24px;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+.names{
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 9px ;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}

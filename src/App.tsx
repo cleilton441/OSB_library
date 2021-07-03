@@ -1,25 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from 'react';
+import Title from './componets/title/Title';
+import Input from './componets/input/Input';
+import Button from './componets/button/Button';
+import Requests from './componets/requests/Requests';
+import api from './services/api';
+
 
 function App() {
+
+  const [data, setData] = useState([])
+  const [text, setText] = useState('')
+  
+  async function getData (){
+
+   await api.get(text).then((data)=> {
+      setData(data.data.hits)
+   }).catch((err)=>{
+     console.log("Não foi possivel fazer a requisição pelo erro" + err)
+   })
+
+   console.log(data)   
+  
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Title/>
+      <Input setText={setText}/>
+      <Button onclick={getData}/>
+      {data.length ? 
+              data.map((response:any, key: number)=> (
+      <Requests  author={response.author ? response.author : "Autor não informado"} title={response.title ? response.title : "Titulo não informado"} url={response.url ? response.url : "Url não informada"} key={key} />
+              )) : <p/>}
+      </> 
   );
 }
 
